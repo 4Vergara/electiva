@@ -35,14 +35,14 @@ defined('COMPOSER_PATH') || define('COMPOSER_PATH', ROOTPATH . 'vendor/autoload.
  */
 
 $ambiente = 'produccion';
-if($ambiente = 'desarrollo'){
+if($ambiente == 'desarrollo'){
     define('RUTA_BASE', 'http://localhost/electiva/');
     define('RUTA_PUBLICA', 'http://localhost/electiva/public/');
     define('NOMBRE_DB', 'proyecto_electiva');
     define('USUARIO_DB', 'root');
     define('HOST_DB', 'localhost');
     define('CONTRASENIA_DB', '');
-}else if('produccion'){
+}else if($ambiente == 'produccion'){
     define('RUTA_BASE', 'http://13.59.222.249/electiva/');
     define('RUTA_PUBLICA', 'http://13.59.222.249/electiva/public/');
     define('NOMBRE_DB', 'proyecto_electiva');
@@ -59,7 +59,6 @@ defined('WEEK')   || define('WEEK', 604800);
 defined('MONTH')  || define('MONTH', 2_592_000);
 defined('YEAR')   || define('YEAR', 31_536_000);
 defined('DECADE') || define('DECADE', 315_360_000);
-defined('RUTA_BASE') || define('RUTA_BASE', 'http://localhost/gestor_empresa/');
 
 /*
  | --------------------------------------------------------------------------
