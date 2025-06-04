@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 d-none">
         <h2 class="text-center mb-4">Calculadora Básica</h2>
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -41,7 +41,48 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Lista de Usuarios</h2>
+        <p class="text-center">A continuación se muestra una lista de usuarios registrados en la base de datos.</p>
+        <table class="table table-striped mt-5">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($usuarios as $usuario): ?>
+                <tr>
+                    <td><?php echo $usuario->id_usuario; ?></td>
+                    <td><?php echo $usuario->nombre_usuario; ?></td>
+                    <td><?php echo $usuario->email; ?></td>
+                    <td><?php echo $usuario->rol_usuario; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <h2 class="text-center mb-4">Lista de Roles</h2>
+        <p class="text-center">A continuación se muestra una lista de roles registrados en la base de datos.</p>
+        <table class="table table-striped mt-5">
+            <thead class="table-success">
+                <tr>
+                    <th scope="col">ID Rol</th>
+                    <th scope="col">Nombre Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($roles as $rol): ?>
+                <tr>
+                    <td><?php echo $rol->id_rol; ?></td>
+                    <td><?php echo $rol->nombre_rol; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+    </div>   
 </body>
 
 </html>

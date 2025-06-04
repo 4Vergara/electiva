@@ -26,7 +26,10 @@ class Usuarios_model extends Model
      */
     public function obtenerUsuarios()
     {
-        $query = $this->db->table($this->table)->get();
-        return $query->getResultArray();
+        $query = $this->db->table($this->table)->join('roles', 'usuarios.id_rol = roles.id_rol')
+                          ->select('usuarios.id_usuario, usuarios.nombre_usuario, usuarios.email, roles.nombre_rol as rol_usuario')
+                          ->orderBy('usuarios.id_usuario', 'ASC')
+                          ->get();
+        return $query->getResultObject();
     }
 }
