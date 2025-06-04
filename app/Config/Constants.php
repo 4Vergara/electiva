@@ -34,7 +34,7 @@ defined('COMPOSER_PATH') || define('COMPOSER_PATH', ROOTPATH . 'vendor/autoload.
  | require information to be in seconds.
  */
 
-$ambiente = 'desarrollo';
+$ambiente = 'produccion';
 if($ambiente == 'desarrollo'){
     define('RUTA_BASE', 'http://localhost/electiva/');
     define('RUTA_PUBLICA', 'http://localhost/');
@@ -43,12 +43,12 @@ if($ambiente == 'desarrollo'){
     define('HOST_DB', 'ec2-3-15-41-15.us-east-2.compute.amazonaws.com');
     define('CONTRASENIA_DB', '1234');
 }else if($ambiente == 'produccion'){
-    define('RUTA_BASE', 'http://13.59.222.249/electiva/');
-    define('RUTA_PUBLICA', 'http://13.59.222.249/');
-    define('NOMBRE_DB', 'proyecto_electiva');
-    define('USUARIO_DB', 'root');
-    define('HOST_DB', 'localhost');
-    define('CONTRASENIA_DB', '');
+    define('RUTA_BASE', 'http://18.227.183.127/electiva/');
+    define('RUTA_PUBLICA', 'http://18.227.183.127/');
+    define('NOMBRE_DB', 'ElectivaIII');
+    define('USUARIO_DB', 'electiva');
+    define('HOST_DB', 'ec2-18-222-190-243.us-east-2.compute.amazonaws.com');
+    define('CONTRASENIA_DB', '1234');
 }
 
 defined('SECOND') || define('SECOND', 1);
