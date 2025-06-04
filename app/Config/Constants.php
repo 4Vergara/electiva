@@ -34,14 +34,14 @@ defined('COMPOSER_PATH') || define('COMPOSER_PATH', ROOTPATH . 'vendor/autoload.
  | require information to be in seconds.
  */
 
-$ambiente = 'produccion';
+$ambiente = 'desarrollo';
 if($ambiente == 'desarrollo'){
     define('RUTA_BASE', 'http://localhost/electiva/');
     define('RUTA_PUBLICA', 'http://localhost/');
-    define('NOMBRE_DB', 'proyecto_electiva');
-    define('USUARIO_DB', 'root');
-    define('HOST_DB', 'localhost');
-    define('CONTRASENIA_DB', '');
+    define('NOMBRE_DB', 'ElectivaIII');
+    define('USUARIO_DB', 'electiva');
+    define('HOST_DB', 'ec2-3-15-41-15.us-east-2.compute.amazonaws.com');
+    define('CONTRASENIA_DB', '1234');
 }else if($ambiente == 'produccion'){
     define('RUTA_BASE', 'http://13.59.222.249/electiva/');
     define('RUTA_PUBLICA', 'http://13.59.222.249/');
