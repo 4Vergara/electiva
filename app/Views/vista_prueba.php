@@ -43,8 +43,11 @@
         </div>
     </div>
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Lista de Usuarios</h2>
-        <p class="text-center">A continuación se muestra una lista de usuarios registrados en la base de datos.</p>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-start mb-4">Lista de Usuarios</h2>
+            <button class="btn btn-success" id="abrir_modal_usuario">Registrar usuario</button>
+        </div>
+        <p class="text-start">A continuación se muestra una lista de usuarios registrados en la base de datos.</p>
         <table class="table table-striped mt-5">
             <thead class="table-dark">
                 <tr>
@@ -65,8 +68,8 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <h2 class="text-center mb-4">Lista de Roles</h2>
-        <p class="text-center">A continuación se muestra una lista de roles registrados en la base de datos.</p>
+        <h2 class="text-start mb-4">Lista de Roles</h2>
+        <p class="text-start">A continuación se muestra una lista de roles registrados en la base de datos.</p>
         <table class="table table-striped mt-5">
             <thead class="table-success">
                 <tr>
@@ -84,6 +87,39 @@
             </tbody>
     </div>   
 </body>
+
+<!-- Modal para registrar usuario -->
+<div class="modal fade" id="modal_usuario" tabindex="-1" aria-labelledby="modal_usuarioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_usuarioLabel">Registrar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_registrar_usuario">
+                    <div class="mb-3">
+                        <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="nombre_usuario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email_usuario" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email_usuario" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rol_usuario" class="form-label">Rol</label>
+                        <select class="form-select" id="rol_usuario">
+                            <?php foreach ($roles as $rol): ?>
+                            <option value="<?php echo $rol->id_rol; ?>"><?php echo $rol->nombre_rol; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Registrar Usuario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>
 
@@ -123,6 +159,41 @@
 
             $('#resultado').text(resultado);
             $('#resultadoBox').removeClass('d-none');
+        });
+
+        $('#abrir_modal_usuario').click(function () {
+            $('#modal_usuario').modal('show');
+        });
+
+        $('#form_registrar_usuario').submit(function (e) {
+            e.preventDefault();
+
+            const nombreUsuario = $('#nombre_usuario').val();
+            const emailUsuario = $('#email_usuario').val();
+            const rolUsuario = $('#rol_usuario').val();
+
+            $.ajax({
+                url: '<?php echo RUTA_PUBLICA; ?>' + 'home/registrar_usuario',
+                type: 'POST',
+                data: {
+                    nombre_usuario: nombreUsuario,
+                    email: emailUsuario,
+                    id_rol: rolUsuario
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if(response.resp == true){
+                        alert('Usuario registrado exitosamente');
+                        $('#modal_usuario').modal('hide');
+                        location.reload(); // Recargar la página para ver el nuevo usuario
+                    }else{
+                        alert('Error al registrar el usuario');
+                    }
+                },
+                error: function () {
+                    alert('Error al registrar el usuario');
+                }
+            });
         });
     });
 </script>

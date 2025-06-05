@@ -25,4 +25,26 @@ class Home extends BaseController
             'roles' => $roles
         ]);
     }
+
+    /**
+     * ? Funcion para registrar un usuario
+     * @param array $datos
+     * @return void
+     */
+    public function registrar_usuario(){
+        //? Cargar el modelo de usuarios
+        $usuarios_model = new Usuarios_model();
+        //? Obtener los datos del formulario
+        $datos = [
+            'nombre_usuario' => $this->request->getPost('nombre_usuario'),
+            'email' => $this->request->getPost('email'),
+            'id_rol' => $this->request->getPost('id_rol')
+        ];
+        //? Registrar el usuario
+        $usuarios_model->registrar($datos);
+        //? Redireccionar a la vista principal
+        return json_encode([
+            'resp' => '1'
+        ]);
+    }
 }
