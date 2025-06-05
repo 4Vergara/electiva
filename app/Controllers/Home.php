@@ -34,6 +34,7 @@ class Home extends BaseController
     public function registrar_usuario(){
         //? Cargar el modelo de usuarios
         $usuarios_model = new Usuarios_model();
+        $id_usuario = $this->request->getPost('id_usuario');
         //? Obtener los datos del formulario
         $datos = [
             'nombre_usuario' => $this->request->getPost('nombre_usuario'),
@@ -41,10 +42,19 @@ class Home extends BaseController
             'id_rol' => $this->request->getPost('id_rol')
         ];
         //? Registrar el usuario
-        $usuarios_model->registrar($datos);
+        $msg = '';
+        if($id_usuario){
+            //? Si el id_usuario existe, actualizar el usuario
+            $msg = 'Usuario actualizado correctamente';
+            $usuarios_model->actualizarUsuario($id_usuario, $datos);
+        } else {
+            $msg = 'Usuario registrado correctamente';
+            $usuarios_model->registrar($datos);
+        }
         //? Redireccionar a la vista principal
         return json_encode([
-            'resp' => '1'
+            'resp' => '1',
+            'msg' => $msg
         ]);
     }
 
@@ -64,5 +74,19 @@ class Home extends BaseController
         return json_encode([
             'resp' => '1'
         ]);
+    }
+
+    /**
+     * ? Funcion para traer un usuario por su id
+     * @param int $id_usuario
+     * @return $usuario
+     */
+    public function obtener_usuario_por_id($id_usuario){
+        //? Cargar el modelo de usuarios
+        $usuarios_model = new Usuarios_model();
+        //? Obtener el usuario por su id
+        $usuario = $usuarios_model->obtenerUsuarioPorId($id_usuario);
+        //? Retornar el usuario
+        return json_encode($usuario);
     }
 }

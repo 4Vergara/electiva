@@ -11,3 +11,4 @@ $routes->get('/', 'Home::index');
 $routes->get('pagina_principal', 'Home::pagina_principal');
 $routes->post('home/registrar_usuario', 'Home::registrar_usuario');
 $routes->post('home/eliminar_usuario', 'Home::eliminar_usuario');
+$routes->get('home/obtener_usuario_por_id/(:num)', 'Home::obtener_usuario_por_id/$1');

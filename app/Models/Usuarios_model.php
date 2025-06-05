@@ -41,4 +41,24 @@ class Usuarios_model extends Model
     public function eliminarUsuario($id_usuario){
         $this->db->table($this->table)->where('id_usuario', $id_usuario)->delete();
     }
+
+    /**
+     * ? Funcion para traer un usuario por su id
+     * @param int $id_usuario
+     * @return object
+     */
+    public function obtenerUsuarioPorId($id_usuario){
+        $query = $this->db->table($this->table)->where('id_usuario', $id_usuario)->get();
+        return $query->getRow();
+    }
+
+    /**
+     * ? Funcion para actualizar un usuario
+     * @param int $id_usuario
+     * @param array $datos
+     * @return void
+     */
+    public function actualizarUsuario($id_usuario, $datos){
+        $this->db->table($this->table)->where('id_usuario', $id_usuario)->update($datos);
+    }
 }

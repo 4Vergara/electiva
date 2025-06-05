@@ -66,7 +66,10 @@
                     <td><?php echo $usuario->email; ?></td>
                     <td><?php echo $usuario->rol_usuario; ?></td>
                     <td>
-                        <button class="btn btn-danger btn-sm eliminar_usuario" data-id="<?php echo $usuario->id_usuario; ?>">Eliminar</button>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-warning btn-sm actualizar_usuario" data-id="<?php echo $usuario->id_usuario; ?>">Actualizar</button>
+                            <button class="btn btn-danger btn-sm eliminar_usuario" data-id="<?php echo $usuario->id_usuario; ?>">Eliminar</button>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -102,6 +105,7 @@
             </div>
             <div class="modal-body">
                 <form id="form_registrar_usuario">
+                    <input type="hidden" id="id_usuario">
                     <div class="mb-3">
                         <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
                         <input type="text" class="form-control" id="nombre_usuario" required>
@@ -172,6 +176,7 @@
         $('#form_registrar_usuario').submit(function (e) {
             e.preventDefault();
 
+            const idUsuario = $('#id_usuario').val(); // Si se usa para actualizar, de lo contrario dejarlo vacío
             const nombreUsuario = $('#nombre_usuario').val();
             const emailUsuario = $('#email_usuario').val();
             const rolUsuario = $('#rol_usuario').val();
@@ -180,6 +185,7 @@
                 url: '<?php echo RUTA_PUBLICA; ?>' + 'home/registrar_usuario',
                 type: 'POST',
                 data: {
+                    id_usuario: idUsuario, // Si se usa para actualizar, de lo contrario dejarlo vacío
                     nombre_usuario: nombreUsuario,
                     email: emailUsuario,
                     id_rol: rolUsuario
@@ -187,7 +193,7 @@
                 dataType: 'json',
                 success: function (response) {
                     if(response.resp == true){
-                        alert('Usuario registrado exitosamente');
+                        alert(response.msg);
                         $('#modal_usuario').modal('hide');
                         location.reload(); // Recargar la página para ver el nuevo usuario
                     }else{
@@ -223,6 +229,25 @@
                     }
                 });
             }
+        });
+
+        $('.actualizar_usuario').click(function () {
+            const idUsuario = $(this).data('id');
+            $.ajax({
+                url: '<?php echo RUTA_PUBLICA; ?>' + 'home/obtener_usuario_por_id/' + idUsuario,
+                type: 'GET',
+                dataType: 'json',
+                success: function (usuario) {
+                    $('#id_usuario').val(usuario.id_usuario);
+                    $('#nombre_usuario').val(usuario.nombre_usuario);
+                    $('#email_usuario').val(usuario.email);
+                    $('#rol_usuario').val(usuario.id_rol);
+                    $('#modal_usuario').modal('show');
+                },
+                error: function () {
+                    alert('Error al obtener los datos del usuario');
+                }
+            });
         });
         
     });
