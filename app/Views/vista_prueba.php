@@ -55,7 +55,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col" class="text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,7 +65,7 @@
                     <td><?php echo $usuario->nombre_usuario; ?></td>
                     <td><?php echo $usuario->email; ?></td>
                     <td><?php echo $usuario->rol_usuario; ?></td>
-                    <td>
+                    <td class="text-center">
                         <div class="btn-group" role="group">
                             <button class="btn btn-warning btn-sm actualizar_usuario" data-id="<?php echo $usuario->id_usuario; ?>">Actualizar</button>
                             <button class="btn btn-danger btn-sm eliminar_usuario" data-id="<?php echo $usuario->id_usuario; ?>">Eliminar</button>
