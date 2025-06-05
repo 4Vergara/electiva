@@ -32,4 +32,13 @@ class Usuarios_model extends Model
                           ->get();
         return $query->getResultObject();
     }
+
+    /**
+     * ? Funcion para eliminar un usuario de la base de datos
+     * @param int $id_usuario
+     * @return void
+     */
+    public function eliminarUsuario($id_usuario){
+        $this->db->table($this->table)->where('id_usuario', $id_usuario)->delete();
+    }
 }

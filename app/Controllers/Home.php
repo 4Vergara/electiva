@@ -47,4 +47,22 @@ class Home extends BaseController
             'resp' => '1'
         ]);
     }
+
+    /**
+     * ? Funcion para eliminar un usuario
+     * @param int $id_usuario
+     * @return void
+     */
+    public function eliminar_usuario(){
+        //? Cargar el modelo de usuarios
+        $usuarios_model = new Usuarios_model();
+        //? Obtener el id del usuario a eliminar
+        $id_usuario = $this->request->getPost('id_usuario');
+        //? Eliminar el usuario
+        $usuarios_model->eliminarUsuario($id_usuario);
+        //? Redireccionar a la vista principal
+        return json_encode([
+            'resp' => '1'
+        ]);
+    }
 }

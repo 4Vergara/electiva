@@ -55,6 +55,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,6 +65,9 @@
                     <td><?php echo $usuario->nombre_usuario; ?></td>
                     <td><?php echo $usuario->email; ?></td>
                     <td><?php echo $usuario->rol_usuario; ?></td>
+                    <td>
+                        <button class="btn btn-danger btn-sm eliminar_usuario" data-id="<?php echo $usuario->id_usuario; ?>">Eliminar</button>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -195,5 +199,31 @@
                 }
             });
         });
+
+        $('.eliminar_usuario').click(function () {
+            const idUsuario = $(this).data('id');
+            let respuesta = confirm('¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.');
+
+            if (respuesta) {
+                $.ajax({
+                    url: '<?php echo RUTA_PUBLICA; ?>' + 'home/eliminar_usuario',
+                    type: 'POST',
+                    data: { id_usuario: idUsuario },
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.resp == true){
+                            alert('Usuario eliminado exitosamente');
+                            location.reload(); // Recargar la página para ver los cambios
+                        }else{
+                            alert('Error al eliminar el usuario');
+                        }
+                    },
+                    error: function () {
+                        alert('Error al eliminar el usuario');
+                    }
+                });
+            }
+        });
+        
     });
 </script>
